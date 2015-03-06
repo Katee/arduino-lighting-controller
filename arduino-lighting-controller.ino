@@ -39,10 +39,10 @@ void setup() {
   // activate built-in pull-up resistor
   digitalWrite(ARMEDPIN, HIGH);
 
-  // don't listen to the wifly radio start text
+  // ignore the WiFly radio start text
   delay(5000);
 
-  // start the serial communication with the wifly
+  // start serial communication with the WiFly
   Serial.begin(115200);
 
   // initialize the expiration time array
@@ -52,7 +52,6 @@ void setup() {
 }
 
 void loop() {
-
   for(c=0;c<8;c++) {
     if(t[c] > millis()) {
       bitSet(r1,c);
@@ -61,6 +60,7 @@ void loop() {
       bitClear(r1,c);
     }
   }
+  
   for(c=0;c<8;c++) {
     if(t[8+c] > millis()) {
       bitSet(r2,c);
