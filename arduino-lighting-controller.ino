@@ -6,7 +6,7 @@
 #define OEPIN    6    // output enable for 74HC595 shift registers
 #define ARMEDPIN 7    // optoisolator connected to load power
 #define DATAPIN  11   // data for 74HC595 shift registers
-#define CLOCKPIN 13   // clock for 74HC595 shift registers 
+#define CLOCKPIN 13   // clock for 74HC595 shift registers
 
 #define bitFlip(x,n)  bitRead(x,n) ? bitClear(x,n) : bitSet(x,n)
 
