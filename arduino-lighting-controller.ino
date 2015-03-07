@@ -9,6 +9,7 @@
 #define CLOCKPIN 13   // clock for 74HC595 shift registers
 
 #define bitFlip(x,n)  bitRead(x,n) ? bitClear(x,n) : bitSet(x,n)
+#define STARTUP_TIMEOUT 5000
 
 // how long to keep fire active per message, in ms
 #define FIRETIME 100
@@ -40,7 +41,7 @@ void setup() {
   digitalWrite(ARMEDPIN, HIGH);
 
   // ignore the WiFly radio start text
-  delay(5000);
+  delay(STARTUP_TIMEOUT);
 
   // start serial communication with the WiFly
   Serial.begin(115200);
