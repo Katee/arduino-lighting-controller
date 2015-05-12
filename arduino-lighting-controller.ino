@@ -24,8 +24,8 @@ byte outputBytes[NUM_BOARDS * OUTPUT_BYTES_PER_BOARD] = {0};
 
 int atMessageByte = 0;
 byte readChar;
-byte message[NUM_BOARDS * OUTPUT_BYTES_PER_BOARD] = {0};
 int MESSAGE_LENGTH = numOutputBytes + 2;
+byte message[NUM_BOARDS * OUTPUT_BYTES_PER_BOARD + 2] = {0};
 
 unsigned long lastMessageAt = 0;
 unsigned long lastUpdate = 0;
@@ -70,6 +70,7 @@ void loop() {
     atMessageByte++;
     
     switch (atMessageByte) {
+      // first byte in message
       case 1:
         if (readChar == PACKET_START) {
           Serial.println("Got message start sigil.");
@@ -77,12 +78,13 @@ void loop() {
           resetStream();
         }
         break;
+      // second byte in message
       case 2:
         switch (readChar) {
-          case MESSAGE_BUFFER:
+          case MESSAGE_MODE:
             Serial.println("message is to change pattern");
             break;
-          case MESSAGE_MODE:
+          case MESSAGE_BUFFER:
             Serial.println("message is a buffer");
             break;
           default:
@@ -128,7 +130,7 @@ void resetStream() {
 void handleMessage() {
   switch (message[1]) {
     case MESSAGE_MODE:
-      Serial.println(message[2]);
+      Serial.println("message is mode change");
       
       switch (message[2]) {
         case 0x01:
